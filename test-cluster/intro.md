@@ -1,6 +1,6 @@
 <br>
 
-![KubeConfess Logo](/assets/kubeconfess-logo.jpeg)
+![KubeConfess Logo](../assets/kubeconfess-logo.jpeg)
 
 # Welcome to the KubeConfess Lab
 
