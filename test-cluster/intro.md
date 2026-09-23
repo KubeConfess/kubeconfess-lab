@@ -1,7 +1,7 @@
 <br>
 
-### Welcome !
+![KubeConfess Logo](assets/kubeconfess-logo.jpeg)
 
-In this scenario we'll learn how to use KubeConfess.
+# Welcome to the KubeConfess Lab
 
-**HAVE FUN**
+Learn how to investigate Kubernetes security issues using KubeConfess.
