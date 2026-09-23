@@ -1,5 +1,7 @@
 {
-  "title": "KubeConfess Labs",
+  "title": "KubeConfess: AI Security Agent for Kubernetes",
+  "description": "Learn how to investigate Kubernetes security issues with KubeConfess.",
+  "icon": "assets/kubeconfess-logo.jpeg",
   "details": {
     "intro": {
       "text": "intro.md"
