@@ -59,7 +59,7 @@ This scopes the investigation to just that pod — useful when you want to under
 investigate namespace/kubeconfess-attack
 `````
 
-This namespace has static SA tokens, privileged pods, and deployment patch permissions — the report should surface all three as attack paths.
+This namespace has static SA tokens, privileged pods, and deployment patch permissions — the report should surface all three as attack paths. Please note the graph might be a bit overwhelming.
 
 ---
 
@@ -68,7 +68,7 @@ This namespace has static SA tokens, privileged pods, and deployment patch permi
 Inside KubeConfess type:
 
 `````
-investigate namespace/kubeconfess-attack --graph
+investigate pod/pod-compromised -n kubeconfess-attack --graph
 `````
 
 This generates an interactive D3.js attack graph saved as a zip bundle in `/tmp`.
@@ -77,7 +77,7 @@ This generates an interactive D3.js attack graph saved as a zip bundle in `/tmp`
 
 ## View the attack graph in your browser
 
-Open a **new terminal tab** by clicking the `+` button. Then run these commands one by one:
+Open a **new terminal tab** by clicking the `+` button. Then run these commands one by one.
 
 Unzip the bundle:
 
