@@ -1,12 +1,14 @@
-# Step 5 — Investigate Mode
+# Step 5 — Investigate Mode + Attack Graph
 
 Investigate Mode runs a fixed sequence of checks against a target — permissions, RBAC, secrets, security misconfigs — then sends everything to the AI in one shot to produce a structured attack path report.
 
 ## Investigate a namespace
 
-```
+Inside KubeConfess type:
+
+`````
 investigate namespace/kubeconfess-audit
-```
+`````
 
 This will take 30-60 seconds. KubeConfess is:
 1. Running ~10 tool calls to collect all data
@@ -31,21 +33,21 @@ The report has four sections:
 
 After the report you stay in the chat — the findings are in memory:
 
-```
+`````
 give me the exact kubectl command to exec into the compromised pod
-```
+`````
 
-```
+`````
 what YAML do I apply to remove the secret read permission from sa-payments-api?
-```
+`````
 
 ---
 
 ## Investigate a specific pod
 
-```
+`````
 investigate pod/payments-api -n kubeconfess-audit
-```
+`````
 
 This scopes the investigation to just that pod — useful when you want to understand the blast radius from a specific entry point.
 
@@ -53,9 +55,9 @@ This scopes the investigation to just that pod — useful when you want to under
 
 ## Investigate the attack namespace
 
-```
+`````
 investigate namespace/kubeconfess-attack
-```
+`````
 
 This namespace has static SA tokens, privileged pods, and deployment patch permissions — the report should surface all three as attack paths.
 
@@ -63,13 +65,61 @@ This namespace has static SA tokens, privileged pods, and deployment patch permi
 
 ## Generate an attack graph
 
-```
+Inside KubeConfess type:
+
+`````
 investigate namespace/kubeconfess-attack --graph
-```
+`````
 
-This generates an interactive D3.js attack graph alongside the text report. The graph is saved to `/tmp` as a zip bundle.
+This generates an interactive D3.js attack graph saved as a zip bundle in `/tmp`.
 
-Retrieve it after the lab:
-```
-ls /tmp/kubeconfess-*.zip
-```{{exec}}
+---
+
+## View the attack graph in your browser
+
+Open a **new terminal tab** by clicking the `+` button. Then run these commands one by one:
+
+Unzip the bundle:
+
+`````
+cd /tmp && unzip -o $(ls kubeconfess-*.zip | tail -1) && cp $(ls -d kubeconfess-*/)/attack_graph.html /tmp/attack_graph.html
+````{{exec}}
+
+Start a simple HTTP server:
+
+````
+python3 -m http.server 8888 --directory /tmp &
+````{{exec}}
+
+Verify it is running:
+
+````
+curl -s -o /dev/null -w "%{http_code}" http://localhost:8888/attack_graph.html
+````{{exec}}
+
+You should see `200`. Now open the attack graph by clicking the link below:
+
+[Open Attack Graph]({{TRAFFIC_HOST1_8888}}/attack_graph.html)
+
+> **Note:** If the link shows a connection error, wait 5 seconds and try again — the server may still be starting.
+
+---
+
+## Using the graph
+
+- **Click any node** to inspect its type, severity, and ID in the sidebar
+- **Drag nodes** to rearrange the layout
+- **Scroll** to zoom in and out
+- **Click the canvas** to deselect and reset highlighted edges
+- Nodes are **sized and coloured by severity** — CRITICAL nodes glow red and are larger
+
+---
+
+## Stop the server when done
+
+Switch back to the first terminal tab and continue using KubeConfess. To stop the graph server when you are finished:
+
+````
+kill $(lsof -t -i:8888) 2>/dev/null || pkill -f "http.server 8888"
+````{{exec}}
+````
