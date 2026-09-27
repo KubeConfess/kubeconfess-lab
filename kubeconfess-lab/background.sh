@@ -345,4 +345,7 @@ spec:
               key: secret_key
 YAML
 
+#Install python3 venv
+apt-get install -y python3-venv
+
 echo "Lab environment ready"

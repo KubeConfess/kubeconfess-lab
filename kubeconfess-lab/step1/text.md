@@ -20,7 +20,9 @@ Clone the repository and install:
 ```
 git clone https://github.com/arnavtripathy/KubeConfess.git
 cd KubeConfess
-pip install .
+python3 -m venv .venv
+source .venv/bin/activate
+pip3 install .
 ```{{exec}}
 
 Verify the install:
