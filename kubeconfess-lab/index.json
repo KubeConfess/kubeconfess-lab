@@ -1,0 +1,42 @@
+{
+  "title": "KubeConfess: AI-Powered Kubernetes Security Agent",
+  "description": "Learn to audit and investigate Kubernetes security using KubeConfess — a conversational AI agent. Scan for misconfigurations, map attack paths, and perform post-exploitation reconnaissance from inside a compromised pod.",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "background": "background.sh"
+    },
+    "steps": [
+      {
+        "title": "Install KubeConfess",
+        "text": "step1/text.md"
+      },
+      {
+        "title": "Explore the Lab Environment",
+        "text": "step2/text.md"
+      },
+      {
+        "title": "Listing and Security Scanning",
+        "text": "step3/text.md"
+      },
+      {
+        "title": "RBAC Analysis",
+        "text": "step4/text.md"
+      },
+      {
+        "title": "Investigate Mode",
+        "text": "step5/text.md"
+      },
+      {
+        "title": "In-Cluster Mode — Attack from Inside a Pod",
+        "text": "step6/text.md"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-2nodes"
+  }
+}
