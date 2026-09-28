@@ -1,12 +1,12 @@
 # Step 5 — Investigate Mode + Attack Graph
 
-Investigate Mode runs a fixed sequence of checks against a target — permissions, RBAC, secrets, security misconfigs — then sends everything to the AI in one shot to produce a structured attack path report.
+Investigate Mode runs a fixed sequence of checks against a target  permissions, RBAC, secrets, security misconfigs  then sends everything to the AI in one shot to produce a structured attack path report.
 
 ## Investigate a namespace
 
 Inside KubeConfess type:
 
-```text
+```
 investigate namespace/kubeconfess-audit
 ```
 
@@ -34,11 +34,11 @@ The report has four sections:
 
 After the report you stay in the chat — the findings are in memory:
 
-```text
+```
 give me the exact kubectl command to exec into the compromised pod
 ```
 
-```text
+```
 what YAML do I apply to remove the secret read permission from sa-payments-api?
 ```
 
@@ -46,7 +46,7 @@ what YAML do I apply to remove the secret read permission from sa-payments-api?
 
 ## Investigate a specific pod
 
-```text
+```
 investigate pod/payments-api -n kubeconfess-audit
 ```
 
@@ -56,7 +56,7 @@ This scopes the investigation to just that pod — useful when you want to under
 
 ## Investigate the attack namespace
 
-```text
+```
 investigate namespace/kubeconfess-attack
 ```
 
@@ -68,7 +68,7 @@ This namespace has static SA tokens, privileged pods, and deployment patch permi
 
 Inside KubeConfess type:
 
-```text
+```
 investigate pod/pod-compromised -n kubeconfess-attack --graph
 ```
 
@@ -82,27 +82,26 @@ Open a **new terminal tab** by clicking the `+` button. Then run these commands 
 
 Unzip the bundle:
 
-```bash
+```
 cd /tmp
 ZIP_FILE=$(ls -t kubeconfess-*.zip | head -1)
 unzip -o "$ZIP_FILE"
 cp "$(find /tmp -maxdepth 2 -name attack_graph.html -type f | head -1)" /tmp/attack_graph.html
-```
-{{exec}}
+```{{exec}}
+
+
 
 Start a simple HTTP server:
 
-```bash
-python3 -m http.server 8888 --directory /tmp &
 ```
-{{exec}}
+python3 -m http.server 8888 --directory /tmp &
+```{{exec}}
 
 Verify it is running:
 
-```bash
-curl -s -o /dev/null -w "%{http_code}" http://localhost:8888/attack_graph.html
 ```
-{{exec}}
+curl -s -o /dev/null -w "%{http_code}" http://localhost:8888/attack_graph.html
+```{{exec}}
 
 You should see `200`. Now open the attack graph by clicking the link below:
 
@@ -127,6 +126,6 @@ You should see `200`. Now open the attack graph by clicking the link below:
 Switch back to the first terminal tab and continue using KubeConfess. To stop the graph server when you are finished:
 
 ```bash
+
 kill $(lsof -t -i:8888) 2>/dev/null || pkill -f "http.server 8888"
-```
-{{exec}}
+```{{exec}}
